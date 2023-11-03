@@ -11,22 +11,18 @@ def abreArquivo(nomeDoArquivo):
 def maiorNota(nomeDoArquivo):
     lista=abreArquivo(nomeDoArquivo)
     maiorNota=0
-    alunoMaiorNota=''
-    notasBoas=[]
-    maiorNotadoAluno=[]
+    alunoComMaiorNota=''
     for item in lista:
-        maiorNotadoAluno.append(item[0])
-        if float(item[1])>float(item[2]):
-            maiorNotadoAluno.append(item[1])
+        aluno = item[0]
+        maiorNota = max(float(item[1]), float(item[2]))
+        if maiorNota > float(item[1]):
+            maiorNota = float(item[1])
         else:
-            maiorNotadoAluno.append(item[2])
-        notasBoas.append(maiorNotadoAluno)
-        maiorNotadoAluno=[]
-    for item in notasBoas:
-        if float(item[1])>maiorNota:
-            maiorNota=float(item[1])
-            alunoMaiorNota=item[0]
-    return alunoMaiorNota
+            maiorNota = float(item[2])
+        
+        if maiorNota > float(item[1]):
+            alunoComMaiorNota = aluno
+    return alunoComMaiorNota
 
 def maiorMedia(nomeDoArquivo):
     lista=abreArquivo(nomeDoArquivo)
@@ -46,12 +42,10 @@ def procuraNota(nomeDoArquivo,aluno):
         
     
 def insereAlunoArquivo(nomeDoArquivo, nome, nota1, nota2):
-    arquivo=open(nomeDoArquivo,'a')
-    arquivo.write(str('\n'+nome +';'+ str(nota1) +';'+ str(nota2)))
-    media=(nota1+nota2)/2
-    arquivo.write(';'+str(media))
-    arquivo.close()
-
+    with open(nomeDoArquivo, 'a') as arquivo:
+        media = (nota1 + nota2) / 2
+        arquivo.write(f'\n{nome};{nota1};{nota2};{media}')
+        print(f"Aluno {nome} foi inserido com sucesso!")
 
 opcao = 0
 while opcao!=5:
